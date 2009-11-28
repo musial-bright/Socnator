@@ -7,10 +7,11 @@
   <script type="text/javascript" src="socnator/js/ext-base.js"></script>
   <script type="text/javascript" src="socnator/js/ext-all.js"></script>
   <script type="text/javascript" src="socnator/js/socnator-lib.js"></script>
-	<script type="text/javascript" src="socnator/js/array-grid.js"></script>
-	<link rel="stylesheet" type="text/css" href="socnator/css/ext-all.css" />
-	<link rel="stylesheet" type="text/css" href="socnator/css/examples.css" />
-	<link rel="stylesheet" type="text/css" href="socnator/css/grid-examples.css" />
+  <script type="text/javascript" src="socnator/js/socnator-twitter-view.js"></script>
+  <link rel="stylesheet" type="text/css" href="socnator/css/ext-all.css" />
+  <link rel="stylesheet" type="text/css" href="socnator/css/examples.css" />
+  <link rel="stylesheet" type="text/css" href="socnator/css/grid-examples.css" />
+  
 </head>
 <body>
 <h1>http://twitter.com/statuses/user_timeline/amusial.json?callback=?</h1>
@@ -19,12 +20,10 @@
 </table>
 
 <div id="twitter"> 
-	<img id="profile"> 
-	<p id="description"></p>
-	<ul></ul> 
+  <img style="float: left; padding-right: 1em;" id="twitter_profile"/><div id="twitter_description"></div>
+  <div style="clear: both;"></div>
+  <div id="tweets"></div>
 </div>
-
-<div id="grid-example"></div>
 
 <script type="text/javascript">
 	socnator.twitter();
