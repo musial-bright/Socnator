@@ -46,7 +46,8 @@ Ext.onReady(function(){
       autoExpandColumn: 'tweet',
       width: 400,
       height: 350,
-      title: socnator.getUserName(),
+      //title: socnator.getUserName(),
+      title: '<img id="twitter_profile" style="float: left; padding-right: 1em;"/><div id="twitter_description"></div><div style="clear: both;"></div>',
       // config options for stateful behavior
       stateful: true,
       stateId: 'grid',
@@ -72,5 +73,10 @@ Ext.onReady(function(){
     
     
     // render the grid to the specified div in the page
-    grid.render('tweets');
+    grid.render('twitter');
+    
+    $("img#twitter_profile").attr("src", socnator.getTwitterImage());
+    $.each(socnator.getTwitterUserDescription(), function(i, value) {
+      $("#twitter_description").append(value + ", ");
+    });
 });

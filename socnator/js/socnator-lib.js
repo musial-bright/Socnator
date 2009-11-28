@@ -6,7 +6,7 @@
  * @require jQuery, ExtJS
  */
 (function() {
-  
+
 	var config = {
 		"twitterImage" : true,
 		"twitterUserName" : "amusial",
@@ -16,18 +16,22 @@
 
   // tweets = [["Tweet1"],["Tweet2"]]
   var tweets = Array();
+  var twitterImageSrc = '';
+  var twitterUserDescription = new Array();
 
   socnator = {
 
 	  getTweetsAsArray : function() { return tweets; },
     
     getUserName : function() { return config.userName; },
-	
-	  // Get your tweets from twitter.
+    
+    getTwitterImage : function() { return twitterImageSrc; },
+    
+    getTwitterUserDescription : function() { return twitterUserDescription; },
+
+    // Get your tweets from twitter.
     twitter : function() {
-      var url = "http://twitter.com/statuses/user_timeline/" + 
-        config.twitterUserName + 
-        ".json";
+      var url = String.format("http://twitter.com/statuses/user_timeline/{0}.json", config.twitterUserName);
 
       $.getJSON(url + "?callback=?", function(data){
         var userInfoRendered = false;
@@ -35,17 +39,17 @@
 
           if (userInfoRendered == false) {
             if (config.twitterImage == true) {
-            	$("img#twitter_profile").attr("src", item.user['profile_image_url']);
-          	}
-          	
+              twitterImageSrc = item.user['profile_image_url'];
+            }
+
             $.each(config['twitterUserAttributes'], function(i, name) {
-              $("#twitter_description").append(item.user[name] + "<br/>");
+              twitterUserDescription.push(item.user[name]);
             });
             
             userInfoRendered = true;
           }
           // date format = '9/1 12:00am'
-	        tweets.push([item.text, item.created_at]);
+          tweets.push([item.text, item.created_at]);
         });
       });
     } // eo:twitter
