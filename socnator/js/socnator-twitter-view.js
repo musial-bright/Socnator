@@ -30,7 +30,7 @@ Ext.onReady(function(){
     });
 
     // manually load local data
-    store.loadData(socnator.getTweetsAsArray());
+    store.loadData(socnator.getTweets());
 
     function renderText(text){
       text = text.replace(/(#[a-zA-Z0-9:.-_]*)/g, '<i>$1</i>');
@@ -47,7 +47,7 @@ Ext.onReady(function(){
       width: 400,
       height: 350,
       //title: socnator.getUserName(),
-      title: '<img id="twitter_profile" style="float: left; padding-right: 1em;"/><div id="twitter_description"></div><div style="clear: both;"></div>',
+      title: '<img id="twitter_profile_img" /><div id="twitter_description"></div><div style="clear: both;"></div>',
       // config options for stateful behavior
       stateful: true,
       stateId: 'grid',
@@ -56,17 +56,18 @@ Ext.onReady(function(){
           {
             id:'tweet',
             header: 'Tweets', 
-            width: 320, 
+            width: 300, 
             sortable: true,
             renderer: renderText,
             dataIndex: 'tweet'
           },
           {
             header: 'Date', 
-            width: 80, 
+            width: 100, 
             sortable: true, 
             renderer: Ext.util.Format.dateRenderer('M. d, Y'), 
-            dataIndex: 'date'}
+            dataIndex: 'date'
+          }
       ]
 
     });
@@ -75,8 +76,10 @@ Ext.onReady(function(){
     // render the grid to the specified div in the page
     grid.render('twitter');
     
-    $("img#twitter_profile").attr("src", socnator.getTwitterImage());
+    // render the user profile
+    $("#twitter_profile_img").attr("src", socnator.getTwitterImage());
+    
     $.each(socnator.getTwitterUserDescription(), function(i, value) {
-      $("#twitter_description").append(value + ", ");
+      $("#twitter_description").append(value + "<br/>");
     });
 });

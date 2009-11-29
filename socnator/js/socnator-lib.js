@@ -7,27 +7,37 @@
  */
 (function() {
 
-	var config = {
-		"twitterImage" : true,
-		"twitterUserName" : "amusial",
-		"twitterUserAttributes" : ["name", "description", "location"],
-		"userName" : "Adam Musial-Bright"
-	};
+  var config = {
+    "userName" : "Adam Musial-Bright",
+    "twitterImage" : true,
+    "twitterUserName" : "amusial",
+    "twitterUserAttributes" : ["name", "description", "location"],
+    "githubUserName" : "musial-bright"
+  };
 
   // tweets = [["Tweet1"],["Tweet2"]]
-  var tweets = Array();
-  var twitterImageSrc = '';
-  var twitterUserDescription = new Array();
+  var twitter = {
+    "tweets" : Array(),
+    "userImage" : "",
+    "userDescription" : Array()
+  }
+  //var twitterUserDescription = new Array();
+  
+  var githubData = {
+    "projects" : Array()
+  }
 
   socnator = {
 
-	  getTweetsAsArray : function() { return tweets; },
+    getTweets : function() { return twitter["tweets"]; },
     
     getUserName : function() { return config.userName; },
     
-    getTwitterImage : function() { return twitterImageSrc; },
+    getTwitterImage : function() { return twitter["userImage"]; },
     
-    getTwitterUserDescription : function() { return twitterUserDescription; },
+    getTwitterUserDescription : function() { return twitter["userDescription"]; },
+    
+    getGithubProjects : function() { return githubData["projects"]; },
 
     // Get your tweets from twitter.
     twitter : function() {
@@ -39,20 +49,37 @@
 
           if (userInfoRendered == false) {
             if (config.twitterImage == true) {
-              twitterImageSrc = item.user['profile_image_url'];
+              twitter["userImage"] = item.user['profile_image_url'];
             }
 
             $.each(config['twitterUserAttributes'], function(i, name) {
-              twitterUserDescription.push(item.user[name]);
+              twitter["userDescription"].push(item.user[name]);
             });
             
             userInfoRendered = true;
           }
-          // date format = '9/1 12:00am'
-          tweets.push([item.text, item.created_at]);
+          twitter["tweets"].push( [item.text, item.created_at] );
         });
       });
-    } // eo:twitter
+    }, // eo:twitter
+
+    github : function() {
+      var url = String.format("http://github.com/api/v1/json/{0}", config.githubUserName);
+      
+      $.getJSON(url + "?callback=?", function(data){
+        var userInfoRendered = false;
+        $.each(data, function(i, item) { 
+          $.each(item.repositories, function(i, item) { 
+            githubData["projects"].push( 
+              [
+                item.name, 
+                String.format('{0}<br/>{1}', item.description, item.url, item.url)
+              ] 
+            );
+          });
+        });
+      });
+    }
 
   };
     
