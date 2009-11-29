@@ -1,4 +1,4 @@
-/* Adam Musial-Brihgt
+/* Adam Musial-Bright
  * 
  * Socnator twitter view
  *
@@ -34,7 +34,7 @@ Ext.onReady(function(){
 
     function renderText(text){
       text = text.replace(/(#[a-zA-Z0-9:.-_]*)/g, '<i>$1</i>');
-      text = text.replace(/(http[a-zA-Z0-9:.-_]*)/g, '<a target="_blank" href="$1">$1</a>');
+      text = text.replace(/(http[a-zA-Z0-9-:\/._]*)/g, '<a target="_blank" href="$1">$1</a>');
       text = String.format('<p style="white-space: normal">{0}</p>', text);
       return text;
     }
