@@ -1,7 +1,7 @@
 /* Adam Musial-Bright
  * 
  * Socnator (SOCial Network aggregaTOR)
- * Liobrary for network web services access.
+ * Library for network web services access.
  *
  * @require jQuery, ExtJS
  */
